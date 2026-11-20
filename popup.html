@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SafeSurf Pro</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --good: #10b981;
+      --mid: #f59e0b;
+      --bad: #ef4444;
+      --blue: #3b82f6;
+      --accent: #6366f1;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --surface: #1e293b;
+        --card-bg: #1e293b;
+        --border: #334155;
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+      }
+    }
+
+    body.dark-theme {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+    }
+
+    body.light-theme {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      width: 380px;
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+    }
+    .brand-icon {
+      font-size: 18px;
+    }
+    .theme-toggle-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+
+    .site-box {
+      margin-bottom: 14px;
+    }
+    .site-host {
+      font-size: 15px;
+      font-weight: 600;
+      word-break: break-all;
+      color: var(--text-primary);
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .status-safe { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+    .status-suspicious { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .status-phishing { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+
+    /* Dual Score Cards */
+    .scores-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .score-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+    .score-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+    .score-val {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .score-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .good-score { color: var(--good); }
+    .mid-score { color: var(--mid); }
+    .bad-score { color: var(--bad); }
+
+    /* Explainable AI / Reasons */
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--text-secondary);
+      margin: 12px 0 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .xai-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-bottom: 12px;
+      max-height: 140px;
+      overflow-y: auto;
+    }
+    .reason-item {
+      padding: 5px 0;
+      font-size: 12px;
+      line-height: 1.35;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .reason-item:last-child { border-bottom: none; }
+    .reason-tag {
+      font-size: 9px;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-weight: 700;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .tag-ai { background: rgba(99, 102, 241, 0.2); color: #818cf8; }
+    .tag-url { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+    .tag-content { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .tag-intel { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+
+    /* Security Checks Rows */
+    .checks-list {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .check-row {
+      padding: 7px 10px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: var(--card-bg);
+    }
+    .check-row:last-child { border-bottom: none; }
+    .check-left {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .check-desc {
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+
+    /* Actions and Footer */
+    .actions-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-primary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+    }
+    .btn:hover { opacity: 0.9; }
+
+    .blocking-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 11px;
+      margin-top: 10px;
+    }
+    .blocking-toggle input { cursor: pointer; }
+
+    .foot {
+      margin-top: 10px;
+      font-size: 10px;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand">
+      <span class="brand-icon">&#x1F6E1;&#xFE0F;</span>
+      <span>SafeSurf Pro</span>
+    </div>
+    <button id="themeToggle" class="theme-toggle-btn">&#x1F313; Theme</button>
+  </div>
+
+  <div class="site-box">
+    <div id="site" class="site-host">Scanning current tab...</div>
+    <div id="statusBadge" class="status-badge status-safe">&#x2714; Secure</div>
+  </div>
+
+  <!-- Dual Scores: Website Security vs Phishing Risk -->
+  <div class="scores-grid">
+    <div class="score-card">
+      <div class="score-title">Security Score</div>
+      <div id="securityScore" class="score-val good-score">--</div>
+      <div id="securitySub" class="score-sub">Encryption & Headers</div>
+    </div>
+    <div class="score-card">
+      <div class="score-title">Phishing Risk</div>
+      <div id="phishingScore" class="score-val good-score">--</div>
+      <div id="phishingSub" class="score-sub">AI Phishing Risk</div>
+    </div>
+  </div>
+
+  <!-- Explainable AI Reasons -->
+  <div class="section-title">
+    <span>Explainable AI Insights</span>
+    <span id="reasonsCount" style="font-size: 10px; color: var(--text-secondary);">0 signals</span>
+  </div>
+  <div id="xaiList" class="xai-box">
+    <div style="font-size: 11px; color: var(--text-secondary);">Analyzing page signals...</div>
+  </div>
+
+  <!-- Detailed Security & Header Checks -->
+  <div class="section-title">Security Posture Checks</div>
+  <div id="checksList" class="checks-list">
+    <div class="check-row">
+      <div class="check-left">&#x23F3; Loading security checks...</div>
+    </div>
+  </div>
+
+  <!-- Passive vs Active Blocking Toggle -->
+  <div class="blocking-toggle">
+    <span>Active Phishing Blocking</span>
+    <input type="checkbox" id="blockingToggle" title="Enable active blocking of high-risk phishing sites">
+  </div>
+
+  <!-- Navigation / Dashboard -->
+  <div class="actions-bar">
+    <button id="openDashboardBtn" class="btn btn-primary">&#x1F4CA; Open Dashboard</button>
+  </div>
+
+  <div id="foot" class="foot">SafeSurf Pro AI v2.1.0 &bull; Local &amp; Passive Detection</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

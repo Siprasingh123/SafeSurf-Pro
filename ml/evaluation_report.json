@@ -1,0 +1,62 @@
+{
+  "evaluation_summary": {
+    "total_samples": 2500,
+    "train_samples": 2000,
+    "test_samples": 500,
+    "features_count": 20
+  },
+  "decision_tree": {
+    "accuracy": 0.994,
+    "precision": 0.992,
+    "recall": 0.996,
+    "f1_score": 0.994,
+    "confusion_matrix": [
+      [
+        248,
+        2
+      ],
+      [
+        1,
+        249
+      ]
+    ]
+  },
+  "random_forest": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "confusion_matrix": [
+      [
+        250,
+        0
+      ],
+      [
+        0,
+        250
+      ]
+    ]
+  },
+  "feature_importances": {
+    "phishing_keyword_count": 0.2735,
+    "hyphen_count_host": 0.1557,
+    "password_field_present": 0.1497,
+    "suspicious_tld": 0.1328,
+    "digit_count_host": 0.1063,
+    "external_form_action": 0.0468,
+    "host_entropy": 0.0268,
+    "is_ip_address": 0.0247,
+    "is_https": 0.0218,
+    "url_entropy": 0.0155,
+    "dot_count_url": 0.0136,
+    "suspicious_char_count": 0.0112,
+    "url_length": 0.0094,
+    "host_length": 0.0053,
+    "brand_similarity_score": 0.0032,
+    "non_standard_port": 0.0026,
+    "subdomain_count": 0.0012,
+    "has_at_symbol": 0.0,
+    "has_double_slash_path": 0.0,
+    "is_punycode": 0.0
+  }
+}

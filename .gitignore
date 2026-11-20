@@ -1,0 +1,9 @@
+node_modules/
+.env
+venv/
+__pycache__/
+*.log
+tools/temp-test-profile/
+
+tools/temp-sw-test/
+tools/test_prof_live/

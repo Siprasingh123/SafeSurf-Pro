@@ -1,0 +1,39 @@
+================================================================================
+SAFESURF PRO - MACHINE LEARNING MODEL EVALUATION REPORT
+================================================================================
+Dataset Split: 80% Train (2000 samples), 20% Test (500 samples)
+Feature Space: 20 Security Indicators
+
+1. DECISION TREE CLASSIFIER:
+--------------------------------------------------------------------------------
+Accuracy:          99.40%
+Precision:         99.20%
+Recall:            99.60%
+F1-Score:          99.40%
+Confusion Matrix:
+  [True Neg (Benign):  248 | False Pos: 2]
+  [False Neg:          1 | True Pos (Phish): 249]
+
+2. RANDOM FOREST ENSEMBLE (Selected Production Classifier):
+--------------------------------------------------------------------------------
+Accuracy:          100.00%
+Precision:         100.00%
+Recall:            100.00%
+F1-Score:          100.00%
+Confusion Matrix:
+  [True Neg (Benign):  250 | False Pos: 0]
+  [False Neg:          0 | True Pos (Phish): 250]
+
+3. TOP PREDICTIVE FEATURE IMPORTANCES:
+--------------------------------------------------------------------------------
+  - phishing_keyword_count   : 27.35%
+  - hyphen_count_host        : 15.57%
+  - password_field_present   : 14.97%
+  - suspicious_tld           : 13.28%
+  - digit_count_host         : 10.63%
+  - external_form_action     : 4.68%
+  - host_entropy             : 2.68%
+  - is_ip_address            : 2.47%
+  - is_https                 : 2.18%
+  - url_entropy              : 1.55%
+================================================================================

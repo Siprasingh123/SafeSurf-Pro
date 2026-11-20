@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SafeSurf Pro - Phishing Site Blocked</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+      --danger: #ef4444;
+      --safe: #10b981;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      max-width: 580px;
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+
+    .icon-box {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 2px solid var(--danger);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin: 0 0 12px;
+      color: var(--danger);
+      letter-spacing: -0.5px;
+    }
+
+    p {
+      color: var(--subtext);
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0 0 20px;
+    }
+
+    .warning-details {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 24px;
+      text-align: left;
+      font-size: 13px;
+    }
+    .detail-row {
+      margin-bottom: 8px;
+      word-break: break-all;
+    }
+    .detail-row:last-child { margin-bottom: 0; }
+    .detail-label {
+      color: var(--subtext);
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .btn {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn-safe {
+      background: var(--safe);
+      color: #ffffff;
+      flex: 2;
+    }
+    .btn-unsafe {
+      background: transparent;
+      color: var(--subtext);
+      border: 1px solid var(--border);
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon-box">&#x26A0;&#xFE0F;</div>
+    <h1>Deceptive Website Blocked</h1>
+    <p>SafeSurf Pro AI Phishing Detection flagged this site as dangerous. Attackers may attempt to trick you into disclosing personal passwords, banking details, or crypto credentials.</p>
+
+    <div class="warning-details">
+      <div class="detail-row">
+        <div class="detail-label">Suspicious Target URL</div>
+        <div id="targetUrl">Loading...</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Phishing Risk Score</div>
+        <div id="riskScore" style="color: var(--danger); font-weight: 700;">--/100</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Primary AI Reason</div>
+        <div id="primaryReason">--</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="goBackBtn" class="btn btn-safe">&#x2190; Back to Safety</button>
+      <button id="proceedBtn" class="btn btn-unsafe">Proceed Anyway</button>
+    </div>
+  </div>
+
+  <script src="blocked.js"></script>
+</body>
+</html>
